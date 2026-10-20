@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aetherium AI — Sovereign Autonomous Intelligence Platform</title>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cyan: '#00f0ff',
+              purple: '#a855f7',
+              emerald: '#10b981',
+              dark: '#06080d',
+              surface: 'rgba(13, 17, 28, 0.72)',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-brand-dark text-slate-100 min-h-screen relative overflow-x-hidden selection:bg-brand-cyan/20 selection:text-brand-cyan">
+
+  <!-- 3D WebGL Background Canvas -->
+  <canvas id="webgl-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- Ambient Subtle Grid & Radial Glow -->
+  <div class="fixed inset-0 bg-hero-glow pointer-events-none z-0"></div>
+  <div class="fixed inset-0 bg-subtle-grid pointer-events-none z-0 opacity-40"></div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full border-b border-brand-border bg-brand-dark/80 backdrop-blur-xl transition-all">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-purple to-brand-cyan p-[1px] shadow-lg shadow-brand-cyan/20">
+          <div class="w-full h-full bg-brand-dark rounded-[11px] flex items-center justify-center">
+            <i data-lucide="orbit" class="w-5 h-5 text-brand-cyan group-hover:rotate-180 transition-transform duration-700"></i>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
+            AETHERIUM <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30">AI</span>
+          </span>
+          <span class="text-[11px] font-mono text-slate-400">Quantum Intelligence OS</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="index.html" class="nav-link active text-slate-200 hover:text-brand-cyan">Overview</a>
+        <a href="dashboard.html" class="nav-link text-slate-400 hover:text-slate-200">Dashboard & Telemetry</a>
+        <a href="agents.html" class="nav-link text-slate-400 hover:text-slate-200">Agent Swarms</a>
+        <a href="architecture.html" class="nav-link text-slate-400 hover:text-slate-200">Architecture</a>
+      </nav>
+
+      <!-- Launch App CTA -->
+      <div class="flex items-center gap-4">
+        <div id="cluster-status-pill" class="hidden lg:flex items-center gap-2 text-xs font-mono text-slate-400 bg-white/[0.03] px-3 py-1.5 rounded-lg border border-white/[0.06]">
+          <span id="cluster-pulse-dot" class="w-2 h-2 rounded-full bg-brand-emerald animate-pulse"></span>
+          <span id="cluster-status-text">US-East-1 Nominal (14ms)</span>
+        </div>
+        <a href="dashboard.html" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-cyan via-teal-400 to-brand-purple text-brand-dark font-bold text-xs tracking-wide shadow-lg shadow-brand-cyan/25 hover:brightness-110 active:scale-95 transition-all">
+          <span>Launch Console</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <main class="relative z-10">
+    <section class="max-w-7xl mx-auto px-6 pt-24 pb-20 text-center flex flex-col items-center">
+      
+      <!-- Announcement Pill -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-cyan/10 border border-brand-cyan/25 text-xs font-mono text-brand-cyan mb-8 animate-pulse-subtle">
+        <span class="flex h-2 w-2 rounded-full bg-brand-cyan"></span>
+        <span>AETHERIUM 4.8 IS NOW DEPLOYED • SUB-MILLISECOND SPECULATIVE DECODING</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-4xl leading-[1.1] sm:leading-[1.15]">
+        Autonomous Intelligence at <span class="bg-gradient-to-r from-brand-cyan via-purple-300 to-brand-purple bg-clip-text text-transparent">Planetary Scale.</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="mt-8 text-base sm:text-xl text-slate-300 max-w-2xl font-normal leading-relaxed">
+        Orchestrate multi-agent reasoning swarms, execute distributed speculative inference, and manage liquid-cooled Hopper silicon from a sovereign operating console.
+      </p>
+
+      <!-- Primary Action Buttons -->
+      <div class="mt-10 flex flex-col sm:flex-row items-center gap-4">
+        <a href="dashboard.html" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-purple text-brand-dark font-bold text-sm shadow-xl shadow-brand-cyan/20 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+          <span>Enter Dashboard</span>
+        </a>
+        <a href="agents.html" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-white border border-brand-border hover:border-brand-cyan/40 font-semibold text-sm transition-all flex items-center justify-center gap-2">
+          <i data-lucide="bot" class="w-4 h-4 text-brand-purple"></i>
+          <span>Deploy Agent Swarms</span>
+        </a>
+      </div>
+
+      <!-- Live Teaser Metrics Strip -->
+      <div class="mt-20 w-full max-w-5xl glass-panel p-6 sm:p-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 divide-y md:divide-y-0 md:divide-x divide-white/[0.08]">
+          <div class="pt-4 md:pt-0">
+            <p class="text-xs font-mono text-slate-400">TOKEN THROUGHPUT</p>
+            <p class="text-2xl sm:text-3xl font-extrabold font-mono text-white mt-1">3.84M <span class="text-xs font-normal text-slate-400">/sec</span></p>
+            <p class="text-xs font-mono text-brand-emerald mt-1">+24.8% peak load</p>
+          </div>
+          <div class="pt-4 md:pt-0 md:pl-6">
+            <p class="text-xs font-mono text-slate-400">MEDIAN LATENCY</p>
+            <p class="text-2xl sm:text-3xl font-extrabold font-mono text-white mt-1">14.2 <span class="text-xs font-normal text-slate-400">ms TTFT</span></p>
+            <p class="text-xs font-mono text-brand-cyan mt-1">Zero-jitter lock</p>
+          </div>
+          <div class="pt-4 md:pt-0 md:pl-6">
+            <p class="text-xs font-mono text-slate-400">AUTONOMOUS SWARMS</p>
+            <p class="text-2xl sm:text-3xl font-extrabold font-mono text-white mt-1">842 <span class="text-xs font-normal text-slate-400">active</span></p>
+            <p class="text-xs font-mono text-brand-purple mt-1">99.4% task accuracy</p>
+          </div>
+          <div class="pt-4 md:pt-0 md:pl-6">
+            <p class="text-xs font-mono text-slate-400">HARDWARE CLUSTER</p>
+            <p class="text-2xl sm:text-3xl font-extrabold font-mono text-white mt-1">64x <span class="text-xs font-normal text-slate-400">H100 SXM5</span></p>
+            <p class="text-xs font-mono text-brand-emerald mt-1">99.98% cluster health</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VALUE PROPOSITIONS & ARCHITECTURE ==================== -->
+    <section id="features" class="max-w-7xl mx-auto px-6 py-20">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <h2 class="text-xs font-mono uppercase tracking-wider text-brand-cyan">Sovereign Architecture</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Engineered for Autonomous Reasoning</p>
+        <p class="text-slate-400 text-sm mt-3">High-density distributed compute primitives built from bare metal to inference.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Card 1 -->
+        <div class="glass-panel p-8 flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center text-brand-cyan mb-6 group-hover:scale-110 transition-transform">
+              <i data-lucide="zap" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white tracking-tight">Speculative Quantum Decoding</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mt-3">
+              Speculative tree-search decoding models verify up to 6 draft tokens simultaneously, dropping first-token response latency below 15ms.
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-brand-border flex items-center justify-between text-xs font-mono text-brand-cyan">
+            <span>FlashAttention-3 Kernels</span>
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-panel p-8 flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-purple/10 border border-brand-purple/30 flex items-center justify-center text-brand-purple mb-6 group-hover:scale-110 transition-transform">
+              <i data-lucide="bot" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white tracking-tight">Autonomous Swarm Consensus</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mt-3">
+              Self-balancing agent clusters coordinate using Byzantine fault-tolerant consensus to decompose and execute complex engineering tasks.
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-brand-border flex items-center justify-between text-xs font-mono text-brand-purple">
+            <a href="agents.html" class="flex items-center justify-between w-full">
+              <span>View Swarm Matrix</span>
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-panel p-8 flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-emerald/10 border border-brand-emerald/30 flex items-center justify-center text-brand-emerald mb-6 group-hover:scale-110 transition-transform">
+              <i data-lucide="cpu" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white tracking-tight">Dedicated Hardware Racks</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mt-3">
+              Direct access to dedicated NVIDIA Hopper H100 SXM5 80GB clusters with 900 GB/s bidirectional NVLink bandwidth per chassis.
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-brand-border flex items-center justify-between text-xs font-mono text-brand-emerald">
+            <a href="dashboard.html" class="flex items-center justify-between w-full">
+              <span>Inspect Hardware Telemetry</span>
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== CALL TO ACTION ==================== -->
+    <section class="max-w-7xl mx-auto px-6 py-20">
+      <div class="glass-panel p-10 sm:p-14 text-center relative overflow-hidden bg-gradient-to-b from-brand-surface to-brand-dark/95">
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          Ready to Deploy Sovereign Swarms?
+        </h2>
+        <p class="mt-4 text-slate-300 text-base max-w-xl mx-auto">
+          Access high-performance telemetry, manage autonomous workflows, and experience zero-latency intelligence.
+        </p>
+
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="dashboard.html" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-purple text-brand-dark font-bold text-sm shadow-xl shadow-brand-cyan/25 hover:brightness-110 transition">
+            Launch Dashboard
+          </a>
+          <a href="agents.html" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white/[0.04] text-white border border-brand-border hover:border-brand-cyan/40 font-semibold text-sm transition">
+            Manage AI Workflows
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="border-t border-brand-border bg-brand-dark/95 py-12 relative z-10">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <i data-lucide="orbit" class="w-5 h-5 text-brand-cyan"></i>
+        <span class="font-bold text-sm text-white">Aetherium AI</span>
+        <span class="text-xs text-slate-500 font-mono">© 2026 Sovereign Systems Corp.</span>
+      </div>
+
+      <div class="flex items-center gap-6 text-xs font-mono text-slate-400">
+        <a href="index.html" class="hover:text-white transition">Overview</a>
+        <a href="dashboard.html" class="hover:text-white transition">Dashboard</a>
+        <a href="agents.html" class="hover:text-white transition">Agents</a>
+        <span class="text-brand-emerald flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-emerald"></span> All Systems Operational
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>

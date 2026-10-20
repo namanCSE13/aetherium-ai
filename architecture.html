@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aetherium AI — Sovereign Platform Architecture</title>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cyan: '#00f0ff',
+              purple: '#a855f7',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              dark: '#06080d',
+              surface: 'rgba(13, 17, 28, 0.72)',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-brand-dark text-slate-100 min-h-screen relative overflow-x-hidden selection:bg-brand-cyan/20 selection:text-brand-cyan">
+
+  <!-- Ambient Subtle Grid & Radial Glow -->
+  <div class="fixed inset-0 bg-hero-glow pointer-events-none z-0"></div>
+  <div class="fixed inset-0 bg-subtle-grid pointer-events-none z-0 opacity-40"></div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full border-b border-brand-border bg-brand-dark/80 backdrop-blur-xl transition-all">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-purple to-brand-cyan p-[1px] shadow-lg shadow-brand-cyan/20">
+          <div class="w-full h-full bg-brand-dark rounded-[11px] flex items-center justify-center">
+            <i data-lucide="orbit" class="w-5 h-5 text-brand-cyan group-hover:rotate-180 transition-transform duration-700"></i>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
+            AETHERIUM <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30">AI</span>
+          </span>
+          <span class="text-[11px] font-mono text-slate-400">Quantum Intelligence OS</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="index.html" class="nav-link text-slate-400 hover:text-slate-200">Overview</a>
+        <a href="dashboard.html" class="nav-link text-slate-400 hover:text-slate-200">Dashboard & Telemetry</a>
+        <a href="agents.html" class="nav-link text-slate-400 hover:text-slate-200">Agent Swarms</a>
+        <a href="architecture.html" class="nav-link active text-slate-200 hover:text-brand-cyan">Architecture</a>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-4">
+        <div id="cluster-status-pill" class="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-300 bg-white/[0.04] px-3.5 py-1.5 rounded-xl border border-white/[0.08]">
+          <span id="cluster-pulse-dot" class="w-2 h-2 rounded-full bg-brand-emerald animate-pulse"></span>
+          <span id="cluster-status-text">US-East-1 Quantum (14.2ms)</span>
+        </div>
+        <a href="dashboard.html" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-purple text-brand-dark font-bold text-xs tracking-wide shadow-md shadow-brand-cyan/20 hover:brightness-110 active:scale-95 transition-all">
+          <span>Console</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN ARCHITECTURE CONTENT ==================== -->
+  <main class="relative z-10 max-w-7xl mx-auto px-6 py-10 space-y-10">
+    
+    <!-- Page Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2">
+      <div>
+        <div class="flex items-center gap-3">
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Platform System Architecture</h1>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30">DISTRIBUTED TOPOLOGY</span>
+        </div>
+        <p class="text-slate-400 text-sm mt-1">End-to-end data pipeline from client edge to physical Hopper H100 silicon and speculative KV-cache.</p>
+      </div>
+
+      <!-- Quick Platform Specifications Pills -->
+      <div class="flex items-center gap-2 text-xs font-mono self-start md:self-auto">
+        <span class="px-3 py-1.5 rounded-xl bg-brand-dark border border-brand-border text-slate-300">
+          <span class="text-slate-400">Interconnect:</span> <span class="text-brand-cyan font-bold">900 GB/s NVLink</span>
+        </span>
+        <span class="px-3 py-1.5 rounded-xl bg-brand-dark border border-brand-border text-slate-300">
+          <span class="text-slate-400">Precision:</span> <span class="text-brand-purple font-bold">FP8 Tensor Core</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- ==================== HIGH-TECH VISUAL NODE DIAGRAM ==================== -->
+    <div class="glass-panel p-8 sm:p-10 relative overflow-hidden">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-brand-border">
+        <div>
+          <h2 class="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+            <span>Core Distributed Pipeline Flow</span>
+            <span class="w-2 h-2 rounded-full bg-brand-cyan animate-ping"></span>
+          </h2>
+          <p class="text-xs font-mono text-slate-400 mt-1">Interactive nodes — click any component below to inspect latency budgets, protocol buffers, and hardware telemetry.</p>
+        </div>
+        <div class="text-xs font-mono text-brand-cyan flex items-center gap-2">
+          <i data-lucide="info" class="w-4 h-4"></i>
+          <span>Click node to inspect layer</span>
+        </div>
+      </div>
+
+      <!-- Interactive Node Pipeline -->
+      <div class="py-10 relative">
+        
+        <!-- Connecting Circuit Path Overlay (Visible on MD screens and above) -->
+        <div class="hidden lg:block absolute top-1/2 left-8 right-8 -translate-y-1/2 h-1 pointer-events-none z-0">
+          <div class="w-full h-full bg-gradient-to-r from-brand-cyan via-brand-purple to-brand-emerald opacity-25"></div>
+          <!-- Animated Pulse Packet -->
+          <div class="pipeline-packet"></div>
+        </div>
+
+        <!-- 5 Interactive Pipeline Nodes Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 relative z-10" id="nodes-container">
+          
+          <!-- Node 1: Client Application -->
+          <div class="arch-node group glass-panel p-5 cursor-pointer border-brand-cyan/40 hover:border-brand-cyan transition-all hover:scale-[1.03]" data-node="client">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-mono text-brand-cyan font-bold px-2 py-0.5 rounded bg-brand-cyan/10 border border-brand-cyan/30">NODE 01</span>
+              <div class="w-8 h-8 rounded-lg bg-brand-cyan/15 text-brand-cyan flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="laptop" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h3 class="text-sm font-bold text-white group-hover:text-brand-cyan transition-colors">Client Edge</h3>
+            <p class="text-[11px] text-slate-400 mt-1">Web UI / Python SDK / gRPC Client</p>
+            <div class="mt-4 pt-3 border-t border-brand-border text-[10px] font-mono text-slate-400 space-y-1">
+              <div class="flex justify-between"><span>Protocol</span><span class="text-white">HTTP/2 • WSS</span></div>
+              <div class="flex justify-between"><span>Security</span><span class="text-brand-emerald">mTLS 1.3</span></div>
+            </div>
+          </div>
+
+          <!-- Node 2: FastAPI Gateway -->
+          <div class="arch-node group glass-panel p-5 cursor-pointer border-brand-purple/40 hover:border-brand-purple transition-all hover:scale-[1.03]" data-node="gateway">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-mono text-brand-purple font-bold px-2 py-0.5 rounded bg-brand-purple/10 border border-brand-purple/30">NODE 02</span>
+              <div class="w-8 h-8 rounded-lg bg-brand-purple/15 text-brand-purple flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="network" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h3 class="text-sm font-bold text-white group-hover:text-brand-purple transition-colors">FastAPI Gateway</h3>
+            <p class="text-[11px] text-slate-400 mt-1">Asynchronous Ingress & MoE Router</p>
+            <div class="mt-4 pt-3 border-t border-brand-border text-[10px] font-mono text-slate-400 space-y-1">
+              <div class="flex justify-between"><span>Server</span><span class="text-white">Uvicorn ASGI</span></div>
+              <div class="flex justify-between"><span>Overhead</span><span class="text-brand-emerald">&lt; 0.8ms</span></div>
+            </div>
+          </div>
+
+          <!-- Node 3: WebSocket Engine -->
+          <div class="arch-node group glass-panel p-5 cursor-pointer border-brand-emerald/40 hover:border-brand-emerald transition-all hover:scale-[1.03]" data-node="websocket">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-mono text-brand-emerald font-bold px-2 py-0.5 rounded bg-brand-emerald/10 border border-brand-emerald/30">NODE 03</span>
+              <div class="w-8 h-8 rounded-lg bg-brand-emerald/15 text-brand-emerald flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="activity" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h3 class="text-sm font-bold text-white group-hover:text-brand-emerald transition-colors">WebSocket Engine</h3>
+            <p class="text-[11px] text-slate-400 mt-1">High-Frequency Telemetry Broadcast</p>
+            <div class="mt-4 pt-3 border-t border-brand-border text-[10px] font-mono text-slate-400 space-y-1">
+              <div class="flex justify-between"><span>Cadence</span><span class="text-white">1.0 Hz Live</span></div>
+              <div class="flex justify-between"><span>Event Bus</span><span class="text-brand-cyan">12 Partitions</span></div>
+            </div>
+          </div>
+
+          <!-- Node 4: Hopper GPU Swarm -->
+          <div class="arch-node group glass-panel p-5 cursor-pointer border-brand-amber/40 hover:border-brand-amber transition-all hover:scale-[1.03]" data-node="hopper">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-mono text-brand-amber font-bold px-2 py-0.5 rounded bg-brand-amber/10 border border-brand-amber/30">NODE 04</span>
+              <div class="w-8 h-8 rounded-lg bg-brand-amber/15 text-brand-amber flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="cpu" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h3 class="text-sm font-bold text-white group-hover:text-brand-amber transition-colors">Hopper SXM5 Swarm</h3>
+            <p class="text-[11px] text-slate-400 mt-1">8x H100 80GB Multi-GPU Cluster</p>
+            <div class="mt-4 pt-3 border-t border-brand-border text-[10px] font-mono text-slate-400 space-y-1">
+              <div class="flex justify-between"><span>Interconnect</span><span class="text-white">900 GB/s</span></div>
+              <div class="flex justify-between"><span>Throughput</span><span class="text-brand-emerald">3.84M t/s</span></div>
+            </div>
+          </div>
+
+          <!-- Node 5: Speculative KV-Cache Store -->
+          <div class="arch-node group glass-panel p-5 cursor-pointer border-brand-cyan/40 hover:border-brand-cyan transition-all hover:scale-[1.03]" data-node="kvcache">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-mono text-brand-cyan font-bold px-2 py-0.5 rounded bg-brand-cyan/10 border border-brand-cyan/30">NODE 05</span>
+              <div class="w-8 h-8 rounded-lg bg-brand-cyan/15 text-brand-cyan flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="layers" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h3 class="text-sm font-bold text-white group-hover:text-brand-cyan transition-colors">KV-Cache Store</h3>
+            <p class="text-[11px] text-slate-400 mt-1">Page-Locked Unified Tensor Store</p>
+            <div class="mt-4 pt-3 border-t border-brand-border text-[10px] font-mono text-slate-400 space-y-1">
+              <div class="flex justify-between"><span>Compression</span><span class="text-white">4.8x Spec</span></div>
+              <div class="flex justify-between"><span>Capacity</span><span class="text-brand-purple">5.12 TB RAM</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ==================== DYNAMIC COMPONENT DEEP DIVE PANEL ==================== -->
+      <div id="node-inspector-panel" class="mt-4 rounded-xl bg-brand-dark/95 border border-brand-border p-6 font-mono transition-all">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-brand-border">
+          <div class="flex items-center gap-3">
+            <div id="inspector-node-icon" class="w-10 h-10 rounded-xl bg-brand-cyan/15 text-brand-cyan flex items-center justify-center">
+              <i data-lucide="cpu" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 id="inspector-node-title" class="text-base font-bold text-white">Hopper SXM5 GPU Swarm (Node 04)</h3>
+              <p id="inspector-node-subtitle" class="text-xs text-slate-400">Physical Tensor Silicon & Distributed Inference Fabric</p>
+            </div>
+          </div>
+          <span id="inspector-node-tag" class="px-3 py-1 rounded-full text-xs bg-brand-amber/15 text-brand-amber border border-brand-amber/30 self-start sm:self-auto">
+            NVLINK 900 GB/S MESH
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-5 text-xs">
+          <div>
+            <h4 class="text-[11px] uppercase tracking-wider text-slate-400 mb-1">Architecture & Purpose</h4>
+            <p id="inspector-node-desc" class="text-slate-300 leading-relaxed font-sans">
+              8x NVIDIA H100 SXM5 Hopper 80GB tensor accelerators clustered via bidirectional NVLink cross-chassis mesh. Executes FlashAttention-3 kernels with speculative decoding trees, achieving up to 3.84 million tokens/sec aggregate throughput.
+            </p>
+          </div>
+          
+          <div>
+            <h4 class="text-[11px] uppercase tracking-wider text-slate-400 mb-1">Protocols & Low-Level Kernels</h4>
+            <ul id="inspector-node-specs" class="space-y-1.5 text-slate-300">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-cyan"></i> CUDA 12.4 with cuDNN 9.1 Speculative</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-cyan"></i> FP8 E4M3 & E5M2 Mixed-Precision GEMM</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-cyan"></i> NVLink 4th-Gen 900 GB/s bidirectional</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-[11px] uppercase tracking-wider text-slate-400 mb-1">Real-Time Performance Metrics</h4>
+            <div id="inspector-node-metrics" class="space-y-2 bg-brand-dark/80 p-3 rounded-xl border border-brand-border">
+              <div class="flex justify-between">
+                <span class="text-slate-400">P99 Time-To-First-Token:</span>
+                <span class="text-brand-emerald font-bold">14.2 ms</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Total Compute TDP:</span>
+                <span class="text-slate-200">3,240 W / 5,600 W</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Thermals:</span>
+                <span class="text-brand-cyan font-bold">48°C Closed-Loop Liquid</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== TECHNICAL SPECIFICATION CARDS ==================== -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <!-- Tech Card 1: Edge & Ingress Layer -->
+      <div class="glass-panel p-8">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="p-2.5 rounded-xl bg-brand-cyan/15 text-brand-cyan">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">Edge Gateway & mTLS Mesh</h3>
+            <p class="text-xs font-mono text-slate-400">Zero-Trust Zero-Copy Ingress</p>
+          </div>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed font-sans mb-4">
+          Incoming agent tasks and inference prompts enter via our high-throughput FastAPI asynchronous gateway powered by Uvicorn and epoll event loops. Edge TLS termination handles mutual authentication (mTLS 1.3) with sub-millisecond route resolution.
+        </p>
+        <div class="grid grid-cols-2 gap-3 text-xs font-mono pt-3 border-t border-brand-border">
+          <div><span class="text-slate-400">SLA:</span> <span class="text-brand-emerald font-bold">99.998% Uptime</span></div>
+          <div><span class="text-slate-400">Overhead:</span> <span class="text-brand-cyan font-bold">&lt; 0.8ms Gateway</span></div>
+        </div>
+      </div>
+
+      <!-- Tech Card 2: WebSocket Telemetry Pipeline -->
+      <div class="glass-panel p-8">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="p-2.5 rounded-xl bg-brand-emerald/15 text-brand-emerald">
+            <i data-lucide="radio" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">1Hz WebSocket Telemetry Bus</h3>
+            <p class="text-xs font-mono text-slate-400">Harmonic Real-Time Observability</p>
+          </div>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed font-sans mb-4">
+          Physical sensor readings, token velocity, and cluster VRAM metrics are continuously published to an internal event bus and broadcasted to connected dashboards over a persistent bidirectional WebSocket at 1.0 Hz cadence.
+        </p>
+        <div class="grid grid-cols-2 gap-3 text-xs font-mono pt-3 border-t border-brand-border">
+          <div><span class="text-slate-400">Broadcast:</span> <span class="text-brand-emerald font-bold">1Hz Harmonic</span></div>
+          <div><span class="text-slate-400">Jitter:</span> <span class="text-brand-cyan font-bold">&lt; 0.2ms Phase Lock</span></div>
+        </div>
+      </div>
+
+      <!-- Tech Card 3: Multi-GPU Silicon Array -->
+      <div class="glass-panel p-8">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="p-2.5 rounded-xl bg-brand-amber/15 text-brand-amber">
+            <i data-lucide="zap" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">Hopper SXM5 Tensor Parallelism</h3>
+            <p class="text-xs font-mono text-slate-400">900 GB/s Bidirectional Fabric</p>
+          </div>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed font-sans mb-4">
+          Each node hosts 8x NVIDIA H100 Hopper SXM5 accelerators interconnected by 4th-Gen NVLink. MoE routing routes specialized expert tokens directly across GPU high-speed links without traversing PCIe or system RAM bottlenecks.
+        </p>
+        <div class="grid grid-cols-2 gap-3 text-xs font-mono pt-3 border-t border-brand-border">
+          <div><span class="text-slate-400">Bandwidth:</span> <span class="text-brand-amber font-bold">900 GB/s per GPU</span></div>
+          <div><span class="text-slate-400">TFLOPS:</span> <span class="text-brand-cyan font-bold">348 TFLOPS FP8</span></div>
+        </div>
+      </div>
+
+      <!-- Tech Card 4: Speculative KV-Cache Store -->
+      <div class="glass-panel p-8">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="p-2.5 rounded-xl bg-brand-purple/15 text-brand-purple">
+            <i data-lucide="layers" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">Speculative KV-Cache Store</h3>
+            <p class="text-xs font-mono text-slate-400">4.8x Attention Memory Compression</p>
+          </div>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed font-sans mb-4">
+          Memory bandwidth bottlenecks are solved through dynamic Page-Locked KV attention memory management. Speculative drafting algorithms verify multiple candidates concurrently, reducing effective context footprint by 4.8x.
+        </p>
+        <div class="grid grid-cols-2 gap-3 text-xs font-mono pt-3 border-t border-brand-border">
+          <div><span class="text-slate-400">Compression:</span> <span class="text-brand-purple font-bold">4.8x Speculative</span></div>
+          <div><span class="text-slate-400">Context:</span> <span class="text-brand-cyan font-bold">128k Multi-modal</span></div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>

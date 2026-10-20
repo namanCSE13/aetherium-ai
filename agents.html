@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aetherium AI — Autonomous Agent Workflows</title>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cyan: '#00f0ff',
+              purple: '#a855f7',
+              emerald: '#10b981',
+              dark: '#06080d',
+              surface: 'rgba(13, 17, 28, 0.72)',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-brand-dark text-slate-100 min-h-screen relative overflow-x-hidden selection:bg-brand-cyan/20 selection:text-brand-cyan">
+
+  <!-- Ambient Subtle Grid & Radial Glow -->
+  <div class="fixed inset-0 bg-hero-glow pointer-events-none z-0"></div>
+  <div class="fixed inset-0 bg-subtle-grid pointer-events-none z-0 opacity-40"></div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full border-b border-brand-border bg-brand-dark/80 backdrop-blur-xl transition-all">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-purple to-brand-cyan p-[1px] shadow-lg shadow-brand-cyan/20">
+          <div class="w-full h-full bg-brand-dark rounded-[11px] flex items-center justify-center">
+            <i data-lucide="orbit" class="w-5 h-5 text-brand-cyan group-hover:rotate-180 transition-transform duration-700"></i>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
+            AETHERIUM <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30">AI</span>
+          </span>
+          <span class="text-[11px] font-mono text-slate-400">Quantum Intelligence OS</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="index.html" class="nav-link text-slate-400 hover:text-slate-200">Overview</a>
+        <a href="dashboard.html" class="nav-link text-slate-400 hover:text-slate-200">Dashboard & Telemetry</a>
+        <a href="agents.html" class="nav-link active text-slate-200 hover:text-brand-cyan">Agent Swarms</a>
+        <a href="architecture.html" class="nav-link text-slate-400 hover:text-slate-200">Architecture</a>
+      </nav>
+
+      <!-- Right Action Button -->
+      <div class="flex items-center gap-4">
+        <button id="open-create-swarm-btn" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-purple to-brand-cyan text-brand-dark font-bold text-xs tracking-wide shadow-md shadow-brand-purple/20 hover:brightness-110 active:scale-95 transition-all">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i>
+          <span>Create Swarm Workflow</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN AGENT WORKFLOWS CONTENT ==================== -->
+  <main class="relative z-10 max-w-7xl mx-auto px-6 py-10 space-y-8">
+    
+    <!-- Page Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2">
+      <div>
+        <div class="flex items-center gap-3">
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Autonomous Agent Swarms</h1>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-brand-purple/15 text-brand-purple border border-brand-purple/30">MULTI-AGENT MATRIX</span>
+        </div>
+        <p class="text-slate-400 text-sm mt-1">Design, orchestrate, and supervise parallel reasoning clusters solving distributed engineering objectives.</p>
+      </div>
+
+      <!-- Quick Stats Pill Strip -->
+      <div class="flex items-center gap-3 text-xs font-mono self-start md:self-auto">
+        <div class="px-3.5 py-2 rounded-xl bg-brand-dark border border-brand-border text-slate-300">
+          <span class="text-slate-400">Total Active:</span>
+          <span class="text-brand-purple font-bold ml-1" id="swarm-total-count">842</span>
+        </div>
+        <div class="px-3.5 py-2 rounded-xl bg-brand-dark border border-brand-border text-slate-300">
+          <span class="text-slate-400">Consensus Rate:</span>
+          <span class="text-brand-emerald font-bold ml-1">99.4%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter & Search Bar -->
+    <div class="glass-panel p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="relative flex-1 max-w-md">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+        <input type="text" id="swarm-search-input" placeholder="Search swarms by name, model, or task..." class="w-full bg-brand-dark border border-brand-border rounded-xl pl-10 pr-4 py-2 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition">
+      </div>
+
+      <div class="flex items-center gap-2 self-start sm:self-auto text-xs font-mono">
+        <button class="swarm-filter-btn active px-3.5 py-1.5 rounded-lg bg-brand-purple/20 text-brand-purple border border-brand-purple/40 font-semibold" data-status="all">
+          All (6)
+        </button>
+        <button class="swarm-filter-btn px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition" data-status="running">
+          Running (4)
+        </button>
+        <button class="swarm-filter-btn px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition" data-status="completed">
+          Completed (2)
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== ACTIVE SWARMS WORKFLOW GRID ==================== -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="swarms-grid">
+      <!-- Populated via app.js -->
+    </div>
+
+    <!-- ==================== INTERACTIVE SWARM PROMPT DISPATCH CONSOLE ==================== -->
+    <div class="glass-panel p-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-brand-border">
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              <i data-lucide="terminal" class="w-5 h-5 text-brand-purple"></i>
+              <span>Trigger Swarm Execution</span>
+            </h2>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30">POST /api/agent/run</span>
+          </div>
+          <p class="text-xs font-mono text-slate-400 mt-1">Submit an autonomous reasoning prompt directly to the FastAPI backend with live streamed log verification.</p>
+        </div>
+
+        <div class="flex items-center gap-3 text-xs font-mono">
+          <span class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-dark border border-brand-border text-slate-300">
+            <span class="w-2 h-2 rounded-full bg-brand-emerald animate-pulse"></span>
+            <span>FastAPI: 8000</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Prompt Input & Execution Controls -->
+      <div class="pt-6 space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-[11px] font-mono text-slate-400 mb-1">TARGET SWARM</label>
+            <select id="terminal-swarm-select" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3.5 py-2 text-xs font-mono text-white focus:outline-none focus:border-brand-purple">
+              <option value="Swarm-Atlas-09">Swarm-Atlas-09 (MoE Embeddings)</option>
+              <option value="Swarm-Nexus-44">Swarm-Nexus-44 (Zero-Day Fuzzing)</option>
+              <option value="Swarm-Vortex-12">Swarm-Vortex-12 (LoRA Tuning)</option>
+              <option value="Swarm-Chronos-01">Swarm-Chronos-01 (KV-Cache Tree)</option>
+              <option value="Swarm-Custom">Swarm-Titan-X (Custom Swarm)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-mono text-slate-400 mb-1">FOUNDATION MODEL</label>
+            <select id="terminal-model-select" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3.5 py-2 text-xs font-mono text-white focus:outline-none focus:border-brand-purple">
+              <option value="Aether-Omni-Ultra">Aether-Omni-Ultra (128k context)</option>
+              <option value="Aether-Coder-MoE">Aether-Coder-MoE (64k context)</option>
+              <option value="Aether-Quantum-70B">Aether-Quantum-70B (Speculative)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-mono text-slate-400 mb-1">WORKER THREADS</label>
+            <select id="terminal-threads-select" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3.5 py-2 text-xs font-mono text-white focus:outline-none focus:border-brand-purple">
+              <option value="16">16 Threads (1 Node / 32GB)</option>
+              <option value="32">32 Threads (2 Nodes / 64GB)</option>
+              <option value="64">64 Threads (Hopper SXM5 Cluster)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Prompt Textarea & Submit -->
+        <div class="relative">
+          <textarea id="terminal-prompt-input" rows="2" class="w-full bg-brand-dark border border-brand-border rounded-xl p-3.5 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-purple resize-none transition" placeholder="Type prompt to dispatch autonomous swarm (e.g., 'Execute Byzantine fault-tolerant consensus across 100k nodes')..."></textarea>
+
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-2">
+            <!-- Preset Prompt Chips -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-[10px] font-mono text-slate-500">Presets:</span>
+              <button class="terminal-preset-chip text-[10px] font-mono px-2.5 py-1 rounded-lg bg-white/[0.04] text-slate-400 hover:text-brand-cyan hover:border-brand-cyan/40 border border-brand-border transition" data-prompt="Architect a Byzantine fault-tolerant consensus mechanism for 100k autonomous AI agents.">
+                Byzantine Quorum
+              </button>
+              <button class="terminal-preset-chip text-[10px] font-mono px-2.5 py-1 rounded-lg bg-white/[0.04] text-slate-400 hover:text-brand-purple hover:border-brand-purple/40 border border-brand-border transition" data-prompt="Optimize KV-cache memory bandwidth for 70B MoE model using FP8 quantization kernels.">
+                KV-Cache Opt
+              </button>
+              <button class="terminal-preset-chip text-[10px] font-mono px-2.5 py-1 rounded-lg bg-white/[0.04] text-slate-400 hover:text-brand-emerald hover:border-brand-emerald/40 border border-brand-border transition" data-prompt="Perform autonomous zero-day static analysis and formal verification across 1,840 smart contracts.">
+                Zero-Day Fuzzing
+              </button>
+            </div>
+
+            <!-- Dispatch Button -->
+            <button id="dispatch-prompt-btn" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-cyan via-brand-purple to-purple-600 text-brand-dark font-bold text-xs font-mono tracking-wide shadow-lg shadow-brand-cyan/20 hover:brightness-110 active:scale-95 transition-all self-start sm:self-auto">
+              <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+              <span>Dispatch Swarm (POST /api/agent/run)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Futuristic Live Streaming Console Window -->
+        <div class="rounded-2xl bg-brand-dark/95 border border-brand-border overflow-hidden mt-6 shadow-2xl">
+          <!-- Console Window Titlebar -->
+          <div class="px-4 py-3 bg-white/[0.02] border-b border-brand-border flex items-center justify-between text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+              </div>
+              <span class="text-slate-400 ml-2">aetherium-swarm-engine@hopper-01: ~ (REST /api/agent/run)</span>
+            </div>
+            
+            <div class="flex items-center gap-4 text-[11px]">
+              <span id="console-latency" class="text-slate-400">Duration: 0.0ms</span>
+              <span id="console-tokens" class="text-brand-cyan font-bold">0 Tokens</span>
+              <button id="clear-console-btn" class="text-slate-500 hover:text-white transition" title="Clear Console">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Console Window Output Stream -->
+          <div id="prompt-console-stream" class="h-64 p-4 font-mono text-xs overflow-y-auto space-y-2 leading-relaxed bg-[#04060a]">
+            <div class="text-slate-500 italic">Ready. Enter a prompt above and click "Dispatch Swarm" to execute via FastAPI backend...</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== WORKFLOW INSPECTOR & DAG PIPELINE ==================== -->
+    <div class="glass-panel p-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-brand-border">
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-lg font-bold text-white tracking-tight">Active Workflow Execution Pipeline</h2>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30" id="inspector-swarm-title">Swarm-Atlas-09</span>
+          </div>
+          <p class="text-xs font-mono text-slate-400 mt-1">Hierarchical Directed Acyclic Graph (H-DAG) decomposition steps.</p>
+        </div>
+
+        <button id="trigger-pipeline-step-btn" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.04] text-xs font-mono text-brand-cyan hover:bg-brand-cyan/10 border border-brand-cyan/30 transition">
+          <i data-lucide="play-circle" class="w-4 h-4"></i>
+          <span>Advance Step</span>
+        </button>
+      </div>
+
+      <!-- 4-Stage Visual DAG Pipeline -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 py-8">
+        
+        <!-- Step 1 -->
+        <div class="p-4 rounded-xl bg-brand-dark/90 border border-brand-cyan/40 relative">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono text-brand-cyan font-bold uppercase">Stage 01</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-emerald"></i>
+          </div>
+          <h4 class="text-xs font-bold text-white">Decompose Prompt</h4>
+          <p class="text-[11px] text-slate-400 mt-1">Partition into sub-tasks via MoE gate router.</p>
+          <span class="mt-3 inline-block text-[10px] font-mono text-brand-emerald">Finished (2.4ms)</span>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="p-4 rounded-xl bg-brand-dark/90 border border-brand-cyan/40 relative">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono text-brand-cyan font-bold uppercase">Stage 02</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-emerald"></i>
+          </div>
+          <h4 class="text-xs font-bold text-white">Parallel Retrieval</h4>
+          <p class="text-[11px] text-slate-400 mt-1">Query 42TB multimodal vector store in RAM.</p>
+          <span class="mt-3 inline-block text-[10px] font-mono text-brand-emerald">Finished (4.8ms)</span>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="p-4 rounded-xl bg-brand-dark/90 border border-brand-purple/60 relative shadow-lg shadow-brand-purple/10">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono text-brand-purple font-bold uppercase">Stage 03</span>
+            <span class="flex h-2.5 w-2.5 rounded-full bg-brand-purple animate-ping"></span>
+          </div>
+          <h4 class="text-xs font-bold text-white">Multi-Agent Debate</h4>
+          <p class="text-[11px] text-slate-400 mt-1">Resolve edge-case discrepancies via consensus.</p>
+          <span class="mt-3 inline-block text-[10px] font-mono text-brand-purple font-semibold">Active In-Progress</span>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="p-4 rounded-xl bg-brand-dark/60 border border-brand-border relative opacity-60">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono text-slate-400 font-bold uppercase">Stage 04</span>
+            <i data-lucide="clock" class="w-4 h-4 text-slate-500"></i>
+          </div>
+          <h4 class="text-xs font-bold text-slate-300">Formal Verification</h4>
+          <p class="text-[11px] text-slate-400 mt-1">Mathematical validation before final output.</p>
+          <span class="mt-3 inline-block text-[10px] font-mono text-slate-500">Queued</span>
+        </div>
+
+      </div>
+
+      <!-- Live Pipeline Execution Terminal -->
+      <div class="rounded-xl bg-brand-dark/95 border border-brand-border p-4 font-mono text-xs text-slate-300">
+        <div class="flex items-center justify-between pb-2 mb-2 border-b border-brand-border text-slate-400 text-[11px]">
+          <span>Inspector Stream: Swarm-Atlas-09</span>
+          <span class="text-brand-cyan">Active Threads: 16 Workers</span>
+        </div>
+        <div id="inspector-stream" class="h-28 overflow-y-auto space-y-1.5 leading-relaxed">
+          <p class="text-slate-400">[00:00.12] Partitioning multimodal corpus across 12 worker ranks.</p>
+          <p class="text-brand-cyan">[00:01.44] Embedding cache hit ratio: 94.2% across Hopper nodes.</p>
+          <p class="text-brand-purple">[00:02.18] Speculative tree search converged on 4 consensus candidates.</p>
+          <p class="text-slate-200">[00:03.05] Multi-agent debate round 2/3 underway. Divergence: 0.0018.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== CREATE SWARM MODAL ==================== -->
+  <div id="create-swarm-modal" class="fixed inset-0 z-50 bg-brand-dark/80 backdrop-blur-md flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-200">
+    <div class="w-full max-w-lg rounded-2xl bg-brand-dark border border-brand-purple/40 p-6 sm:p-8 shadow-2xl glass-panel relative">
+      <div class="flex items-center justify-between pb-4 border-b border-brand-border">
+        <div class="flex items-center gap-3">
+          <div class="p-2.5 rounded-xl bg-brand-purple/15 text-brand-purple">
+            <i data-lucide="bot" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-white">Create Swarm Workflow</h3>
+            <p class="text-xs font-mono text-slate-400">Configure multi-agent autonomous reasoning topology.</p>
+          </div>
+        </div>
+        <button id="close-swarm-modal-btn" class="text-slate-400 hover:text-white transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="py-5 space-y-4">
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1.5">Swarm Identifier</label>
+          <input type="text" id="new-swarm-name" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3.5 py-2 text-xs font-mono text-white focus:outline-none focus:border-brand-purple" value="Swarm-Hyperion-88">
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1.5">Primary Reasoning Objective</label>
+          <textarea id="new-swarm-objective" rows="2" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3.5 py-2 text-xs font-mono text-white focus:outline-none focus:border-brand-purple resize-none" placeholder="e.g. Synthesize distributed raft consensus protocol for 100k nodes..."></textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1.5">Foundation Model</label>
+            <select id="new-swarm-model" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3.5 py-2 text-xs font-mono text-white focus:outline-none focus:border-brand-purple">
+              <option>Aether-Omni-Ultra (128k)</option>
+              <option>Aether-Coder-MoE (64k)</option>
+              <option>Aether-Quantum-70B</option>
+            </select>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs font-mono text-slate-300 mb-1.5">
+              <span>Concurrency Workers</span>
+              <span id="worker-count-val" class="text-brand-purple font-bold">16 Threads</span>
+            </div>
+            <input type="range" id="worker-slider" min="4" max="64" step="4" value="16" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-purple mt-2">
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-brand-purple/10 border border-brand-purple/20 text-xs font-mono text-slate-300 flex items-center gap-3">
+          <i data-lucide="info" class="w-4 h-4 text-brand-purple shrink-0"></i>
+          <span>Allocates 32 GB shared KV-cache across 4 Hopper SXM5 Tensor Ranks.</span>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-4 border-t border-brand-border">
+        <button id="cancel-swarm-btn" class="px-4 py-2 rounded-xl text-xs font-mono text-slate-400 hover:text-white transition">Cancel</button>
+        <button id="deploy-swarm-confirm-btn" class="px-5 py-2 rounded-xl bg-gradient-to-r from-brand-purple to-brand-cyan text-brand-dark font-bold text-xs font-mono shadow-md shadow-brand-purple/20 hover:brightness-110 transition">
+          Deploy Swarm
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
